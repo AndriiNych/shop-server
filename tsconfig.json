@@ -5,7 +5,11 @@
       "@entities/*": ["src/entities/*"],
       "@services/*": ["src/services/*"]
     },
-    "module": "commonjs",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    // "target": "ESNext",
+
+    // "module": "commonjs",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -21,7 +25,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
-    "resolveJsonModule": true
+    "noFallthroughCasesInSwitch": false
+    // "resolveJsonModule": true
   }
 }
