@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { viewTable } from '@src/util/api-site/view-tables';
 // import { SQL } from '@src/main';
 import { getDbAccess, getDbData, getDbDataODBC } from '@src/util/mdb';
 import { getSite } from '@src/util/test';
@@ -20,9 +21,9 @@ export class MenuService {
     // await getDbDataODBC('Select * from menu_description');
     // await getDbDataODBC('Select * from menu_path');
 
-    await getDbAccess('menu');
-    await getDbAccess('menu_description');
-    await getDbAccess('menu_path');
+    // await getDbAccess('menu');
+    // await getDbAccess('menu_description');
+    // await getDbAccess('menu_path');
 
     // let connection;
     // try {
@@ -156,7 +157,21 @@ export class MenuService {
     //   ],
     // };
     // const rows = await getSite(body);
+
     // console.log(rows);
-    // return rows;
+
+    // const result = await viewTable('category');
+    // const result = await viewTable('category_description');
+    // const result = await viewTable('category_path');
+    // const result = await viewTable('menu');
+    // const result = await viewTable('product');
+    // const result = await viewTable('product_description');
+    // const result = await viewTable('product_category');
+    // const result = await viewTable('product_images');
+    // const result = await viewTable('product_special');
+    // const result = await viewTable('product_attributes');
+
+    const result = 0;
+    return result;
   }
 }

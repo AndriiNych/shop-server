@@ -40,16 +40,20 @@ export async function getDbDataODBC(sqlString: string) {
   }
 }
 
-export async function getDbAccess(sqlString: string) {
+export async function getDbAccess(tableName: string) {
   const mdbReaderModule = await import('mdb-reader'); // Динамічний імпорт
   const mdbReader = mdbReaderModule.default; // доступ до класу через default
 
   const fileBuffer = fs.readFileSync('O:\\Bembi\\_WebSite\\website.mdb');
   const reader = new mdbReader(fileBuffer);
 
-  const tableNames = reader.getTableNames();
-  console.log('Таблиці в базі даних:', tableNames);
+  //   const tableNames = reader.getTableNames();
+  //   console.log('Таблиці в базі даних:', tableNames);
 
-  const rows = reader.getTable(sqlString).getData();
-  console.log('Рядки з таблиці:', rows);
+  const rows = reader.getTable(tableName).getData();
+
+  const filteredRows = rows.filter(elem => Number(elem?.es) > 0);
+
+  //   console.log('Рядки з таблиці:', rows);
+  return filteredRows;
 }
