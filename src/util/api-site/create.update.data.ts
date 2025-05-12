@@ -1,7 +1,7 @@
 export function createUpdateData(tableName: string, data: []): object {
   return {
     action: 'update',
-    destination: `2sm_${tableName}`,
+    destination: `${tableName}`,
     data: createUpdateFields(data),
   };
 }

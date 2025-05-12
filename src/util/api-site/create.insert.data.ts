@@ -3,7 +3,7 @@ export function createInsertData(tableName: string, data: []): object {
     requests: [
       {
         action: 'insert',
-        destination: `2sm_${tableName}`,
+        destination: `${tableName}`,
         data: data,
       },
     ],

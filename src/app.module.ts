@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 
 import { ConfigModule } from './config.module';
 import { ConfigModule as ConfigModuleRoot } from '@nestjs/config';
-import { MenuModule } from './entities/menu/menu.module';
-// import { TypeOrmModule } from './db/typeorm.module';
+import { NewSiteModule } from './entities/new-site/new-site.module';
+import { TypeOrmModule } from './db/wrapper.typeorm.module';
 
 @Module({
-  imports: [ConfigModuleRoot.forRoot(), ConfigModuleRoot.forRoot(), ConfigModule, MenuModule],
+  imports: [ConfigModuleRoot.forRoot(), ConfigModule, TypeOrmModule, NewSiteModule],
 })
 
 // TypeOrmModule

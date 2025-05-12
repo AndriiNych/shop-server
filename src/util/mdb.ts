@@ -52,8 +52,10 @@ export async function getDbAccess(tableName: string) {
 
   const rows = reader.getTable(tableName).getData();
 
+  // console.log(rows);
+
   const filteredRows = rows.filter(elem => Number(elem?.es) > 0);
 
-  //   console.log('Рядки з таблиці:', rows);
+  // console.log(rows);
   return filteredRows;
 }
