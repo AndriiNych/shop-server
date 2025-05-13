@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { TABLE_NAMES } from '@src/db/const-tables';
-import { MenuService } from './menu.service';
+import { MenuDescriptionService } from './menu-description.service';
 
 // @ApiBearerAuth()
 // @ApiTags(TABLE_NAMES.customer)
-@Controller(TABLE_NAMES.menu)
-export class MenuController {
-  constructor(private readonly menuService: MenuService) {}
+@Controller(TABLE_NAMES.menu_description)
+export class MenuDescriptionController {
+  constructor(private readonly menuDescriptionService: MenuDescriptionService) {}
   // @Get('/')
   //   async getAllCustomers(@Query() customerQueryParamsDto: CustomerQueryParamsDto) {
   //     return await this.customerService.getAllCustomers(customerQueryParamsDto);

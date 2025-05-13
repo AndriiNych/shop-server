@@ -1,7 +1,7 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
-import { Shablon } from './shablon.entity';
+import { CategoryDescription } from './category-description.entity';
 
 // import { Customer } from './customer.entity';
 // import { CustomerDto } from './dto/customer.dto';
@@ -17,10 +17,10 @@ import { Shablon } from './shablon.entity';
 // import { MSG } from '@src/utils/get.message';
 
 @Injectable()
-export class ShablonService {
+export class CategoryDescriptionService {
   constructor(
-    @InjectRepository(Shablon)
-    private readonly shablonRepository: Repository<Shablon>,
+    @InjectRepository(CategoryDescription)
+    private readonly categoryDescriptionRepository: Repository<CategoryDescription>,
   ) {}
 
   //   public async getAllCustomers(

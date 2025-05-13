@@ -1,7 +1,7 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
-import { Menu } from './menu.entity';
+import { AttributeDescription } from './attribute-description.entity';
 
 // import { Customer } from './customer.entity';
 // import { CustomerDto } from './dto/customer.dto';
@@ -17,10 +17,10 @@ import { Menu } from './menu.entity';
 // import { MSG } from '@src/utils/get.message';
 
 @Injectable()
-export class MenuService {
+export class AttributeDescriptionService {
   constructor(
-    @InjectRepository(Menu)
-    private readonly menuRepository: Repository<Menu>,
+    @InjectRepository(AttributeDescription)
+    private readonly attributeDescriptionRepository: Repository<AttributeDescription>,
   ) {}
 
   //   public async getAllCustomers(
