@@ -180,7 +180,7 @@ export class NewSiteService {
 
     // result = await viewTable('product_category');
 
-    result = await viewTable('product_images');
+    // result = await viewTable('product_images');
     // result = await viewTable('product_special');
     // result = await viewTable('product_attributes');
 
