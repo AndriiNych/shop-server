@@ -1,40 +1,23 @@
 import { Body, Controller, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { TABLE_NAMES } from '@src/db/const-tables';
 import { CategoryService } from './category.service';
+import { CategoryParamsDto } from './dto/category.params.dto';
 
 // @ApiBearerAuth()
 // @ApiTags(TABLE_NAMES.customer)
-@Controller(TABLE_NAMES.category)
+// @Controller(TABLE_NAMES.category)
+@Controller('/api/categories')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
-  // @Get('/')
-  //   async getAllCustomers(@Query() customerQueryParamsDto: CustomerQueryParamsDto) {
-  //     return await this.customerService.getAllCustomers(customerQueryParamsDto);
-  //   }
-  //   @Get('/:phone')
-  //   async getCustomerByPhone(@Param() customerParamsDto: CustomerParamsDto) {
-  //     return await this.customerService.getCustomerByPhoneBase(customerParamsDto);
-  //   }
-  //   @Patch(':phone')
-  //   async patchCustomerPhoneNumber(
-  //     @Param() customerParamsDto: CustomerParamsDto,
-  //     @Body() customerPhonePatchDto: CustomerPhonePatchDto,
-  //   ) {
-  //     return await this.customerService.changePhoneNumber(customerParamsDto, customerPhonePatchDto);
-  //   }
-  //   @Post('single')
-  //   async createCustomer(@Body() customer: CustomerDto) {
-  //     return await this.customerService.createCustomer(customer);
-  //   }
-  //   @Post('multiple')
-  //   async createCustomers(@Body() customers: CustomersDto) {
-  //     return await this.customerService.createCustomers(customers);
-  //   }
-  //   @Put(':phone')
-  //   async updateCustomer(
-  //     @Param() customerParamsDto: CustomerParamsDto,
-  //     @Body() customerUpdateDto: CustomerUpdateDto,
-  //   ) {
-  //     return await this.customerService.updateCustomerByPhone(customerParamsDto, customerUpdateDto);
-  //   }
+
+  @Get('/')
+  async getAllCategories() {
+    console.log('Request categories');
+    return await this.categoryService.getAllCategories();
+  }
+
+  @Get('/:id')
+  async getCategoryById(@Param() categoryParam: CategoryParamsDto) {
+    return await this.categoryService.getCategoryById(categoryParam);
+  }
 }

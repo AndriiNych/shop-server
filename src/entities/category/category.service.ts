@@ -2,6 +2,8 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
 import { Category } from './category.entity';
+import { CategoryResponseBaseDto } from './dto/category.api.base.dto';
+import { CategoryParamsDto } from './dto/category.params.dto';
 
 // import { Customer } from './customer.entity';
 // import { CustomerDto } from './dto/customer.dto';
@@ -23,17 +25,12 @@ export class CategoryService {
     private readonly categoryRepository: Repository<Category>,
   ) {}
 
-  //   public async getAllCustomers(
-  //     customerQueryParamsDto: CustomerQueryParamsDto,
-  //   ): Promise<ResponseWrapperDto<CustomerResponseDto>> {
-  //     const query = this.getQueryByCriterial(customerQueryParamsDto);
+  public async getAllCategories(): Promise<CategoryResponseBaseDto[]> {
+    return await this.categoryRepository.find();
+  }
 
-  //     const result = await query.getMany();
-
-  //     return responseWrapper(result, CustomerResponseDto);
-  //   }
-
-  //   public async getCustomerById(id: number): Promise<CustomerDto> {
-  //     return await this.fetchCustomerByIdWithValidation(id);
-  //   }
+  public async getCategoryById(categoryParam: CategoryParamsDto): Promise<CategoryResponseBaseDto> {
+    const { id } = categoryParam;
+    return await this.categoryRepository.findOneBy({ id });
+  }
 }
