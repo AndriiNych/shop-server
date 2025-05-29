@@ -175,7 +175,7 @@ export class NewSiteService {
     // result = await viewTable('menu_description');
     // result = await viewTable('menu_path');
 
-    // result = await viewTable('product');
+    result = await viewTable('product');
     // result = await viewTable('product_description');
 
     // result = await viewTable('product_category');

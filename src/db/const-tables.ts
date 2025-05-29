@@ -1,4 +1,5 @@
 export const TABLE_NAMES = {
+  auth: 'auth',
   shablon: 'shablon',
   active: 'active',
   attribute: 'attribute',
@@ -18,4 +19,5 @@ export const TABLE_NAMES = {
   product_images: 'product_images',
   product_special: 'product_special',
   product_stickers: 'product_stickers',
+  user: 'users',
 };
