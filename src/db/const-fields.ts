@@ -18,6 +18,7 @@ export const FIELDS_LENGTH = {
 };
 
 export const FIELDS_DEFAULT_VALUE = {
+  BOOLEAN: false,
   IMAGE: 'blank_logo.jpg',
   LANGUAGE: 'uk',
   NUMBDER: 0,
@@ -40,6 +41,10 @@ const DATE_SHABLON = {
 };
 
 export const FIELDS = {
+  BOOLEAN: {
+    type: 'boolean' as const,
+    default: FIELDS_DEFAULT_VALUE.BOOLEAN,
+  },
   KEY: {
     type: 'int' as const,
     width: FIELDS_LENGTH.INT.BASE,

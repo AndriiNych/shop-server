@@ -6,7 +6,7 @@ import { ProductDescriptionService } from './product-description.service';
 // @ApiTags(TABLE_NAMES.customer)
 @Controller(TABLE_NAMES.product_description)
 export class ProductDescriptionController {
-  constructor(private readonly ProductDescriptionService: ProductDescriptionService) {}
+  constructor(private readonly productDescriptionService: ProductDescriptionService) {}
   // @Get('/')
   //   async getAllCustomers(@Query() customerQueryParamsDto: CustomerQueryParamsDto) {
   //     return await this.customerService.getAllCustomers(customerQueryParamsDto);

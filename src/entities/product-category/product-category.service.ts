@@ -1,6 +1,6 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
+import { Repository } from 'typeorm';
 import { ProductCategory } from './product-category.entity';
 
 @Injectable()
@@ -10,17 +10,17 @@ export class ProductCategoryService {
     private readonly productCategoryRepository: Repository<ProductCategory>,
   ) {}
 
-  //   public async getAllCustomers(
-  //     customerQueryParamsDto: CustomerQueryParamsDto,
-  //   ): Promise<ResponseWrapperDto<CustomerResponseDto>> {
-  //     const query = this.getQueryByCriterial(customerQueryParamsDto);
+  public async getProductCategory(conditions): Promise<ProductCategory[]> {
+    return await this.productCategoryRepository.find({ where: conditions });
+  }
 
-  //     const result = await query.getMany();
+  public async updateProductAttributesById(id: number, data) {
+    return await this.productCategoryRepository.update({ id }, data);
+  }
 
-  //     return responseWrapper(result, CustomerResponseDto);
-  //   }
+  public async saveProductCategory(productCategory): Promise<ProductCategory[]> {
+    const productCategoryNew = this.productCategoryRepository.create(productCategory);
 
-  //   public async getCustomerById(id: number): Promise<CustomerDto> {
-  //     return await this.fetchCustomerByIdWithValidation(id);
-  //   }
+    return await this.productCategoryRepository.save(productCategoryNew);
+  }
 }

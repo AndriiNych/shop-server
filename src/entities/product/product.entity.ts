@@ -1,6 +1,7 @@
 import { FIELDS } from '@src/db/const-fields';
 import { TABLE_NAMES } from '@src/db/const-tables';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { GLOBAL_CONST } from '@src/type/const.type';
 
 @Entity(TABLE_NAMES.product)
 export class Product {
@@ -39,7 +40,7 @@ export class Product {
 
   @Column({
     ...FIELDS.TEXT_DEFAULT,
-    default: 'blank_logo.jpg',
+    default: GLOBAL_CONST.IMAGE,
     name: 'image',
   })
   image: string;

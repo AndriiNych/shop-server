@@ -6,62 +6,51 @@ import { createUpdateData } from './create.update.data';
 import { excludeFieldEs } from './exclude.field';
 
 const TABLES = ['menu', 'menu_description'];
-// const delta = 2000;
 
 export async function viewTable(tableName: string) {
-  //   const sqlString = `SELECT * FROM ${tableName} WHERE es > 0 `;
-
   const data = await getDbAccess(tableName);
-  // console.log(data);
-  // const maxId = Math.max(...data.map(elem => Number(elem.id)));
-  // let start = 0;
-  // while (start < maxId) {
-  //   console.log(start);
-  //   const dataFiltered = filterDataByID(data, start);
 
   const resultInsert = await sendInsertData(tableName, data);
-  // console.log(resultInsert);
 
   const resultUpdate = await sendUpdateData(tableName, data);
-  // console.log(resultUpdate);
 
-  // start = start + delta;
-  // }
-  // console.log(`end with: ${start}`);
-
-  //   return { resultInsert, resultUpdate };
   const r = data.map(elem => Number(elem.id));
-  console.log(Math.min(...r), Math.max(...r));
-  return { resultInsert };
-}
 
-// function filterDataByID(data: any, start: number) {
-//   return data.filter(elem => elem.id >= start && elem.id < start + delta);
-// }
+  const result = {
+    tableName,
+    start: Math.min(...r),
+    end: Math.max(...r),
+    resultInsert,
+    resultUpdate,
+  };
+
+  return result;
+}
 
 async function sendInsertData(tableName: string, data: any) {
   const dataInsert = data.filter(elem => elem.es === 1);
 
-  const preDataToSend = excludeFieldEs(dataInsert);
-  // console.log(preDataToSend);
+  if (dataInsert.length > 0) {
+    const preDataToSend = excludeFieldEs(dataInsert);
 
-  const dataToSend = createInsertData(tableName, preDataToSend);
-  // console.log(dataToSend);
+    const dataToSend = createInsertData(tableName, preDataToSend);
 
-  return await getSite(dataToSend);
+    return await getSite(dataToSend);
+  }
 }
 
 async function sendUpdateData(tableName: string, data: any) {
-  const dataInsert = data.filter(elem => elem.es === 2);
+  const dataUpdate = data.filter(elem => elem.es === 2);
 
-  const preDataToSend = excludeFieldEs(dataInsert);
+  if (dataUpdate.length > 0) {
+    const preDataToSend = excludeFieldEs(dataUpdate);
 
-  const dataToSend = createUpdateData(tableName, preDataToSend);
+    const dataToSend = createUpdateData(tableName, preDataToSend);
 
-  const resultToSend = createRequests(dataToSend);
-  // console.log(resultToSend);
+    const resultToSend = createRequests(dataToSend);
 
-  return await getSite(resultToSend);
+    return await getSite(resultToSend);
+  }
 }
 
 function createRequests(requests) {

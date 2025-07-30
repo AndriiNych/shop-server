@@ -4,19 +4,7 @@ import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
 import { Category } from './category.entity';
 import { CategoryResponseBaseDto } from './dto/category.api.base.dto';
 import { CategoryParamsDto } from './dto/category.params.dto';
-
-// import { Customer } from './customer.entity';
-// import { CustomerDto } from './dto/customer.dto';
-// import { CustomerResponseDto } from './dto/customer.response.dto';
-// import { responseWrapper } from '@src/utils/response-wrapper/response-wrapper';
-// import { ResponseWrapperDto } from '@src/utils/response-wrapper/dto/response-wrapper.dto';
-// import { CustomerUpdateDto } from './dto/customer.update.dto';
-// import { CustomerParamsDto } from './dto/customer.params.dto';
-// import { CustomerQueryParamsDto } from './dto/customer.query.params.dto';
-// import { CustomerPhonePatchDto } from './dto/customer-phone.patch.dto';
-// import { TABLE_NAMES } from '@src/db/const-tables';
-// import { CustomerUpdateBonusDto } from './dto/customer.update.bonus.dto';
-// import { MSG } from '@src/utils/get.message';
+import { CategoryQueryDto } from './dto/category.query.dto';
 
 @Injectable()
 export class CategoryService {
@@ -25,12 +13,32 @@ export class CategoryService {
     private readonly categoryRepository: Repository<Category>,
   ) {}
 
-  public async getAllCategories(): Promise<CategoryResponseBaseDto[]> {
-    return await this.categoryRepository.find();
+  public async getAllCategories(categoryQueryDto: CategoryQueryDto) {
+    const { _end, _start } = categoryQueryDto;
+    console.log(_end, _start);
+
+    const [data, total] = await this.categoryRepository
+      .createQueryBuilder('category')
+      .leftJoinAndSelect('category.descriptions', 'descriptions', 'descriptions.language = :lang', {
+        lang: 'uk',
+      })
+      .orderBy('descriptions.name', 'ASC')
+      .skip(_start)
+      .take(_end - _start)
+      .getManyAndCount();
+
+    const dataMaped = data.map(elem => {
+      const { descriptions, ...other } = elem;
+      return { ...other, name: descriptions[0]?.name ?? '' };
+    });
+
+    return [dataMaped, total];
   }
 
-  public async getCategoryById(categoryParam: CategoryParamsDto): Promise<CategoryResponseBaseDto> {
-    const { id } = categoryParam;
+  public async getCategoryById(
+    categoryParamsDto: CategoryParamsDto,
+  ): Promise<CategoryResponseBaseDto> {
+    const { id } = categoryParamsDto;
     return await this.categoryRepository.findOneBy({ id });
   }
 }

@@ -9,18 +9,4 @@ export class ProductImagesService {
     @InjectRepository(ProductImages)
     private readonly productImagesRepository: Repository<ProductImages>,
   ) {}
-
-  //   public async getAllCustomers(
-  //     customerQueryParamsDto: CustomerQueryParamsDto,
-  //   ): Promise<ResponseWrapperDto<CustomerResponseDto>> {
-  //     const query = this.getQueryByCriterial(customerQueryParamsDto);
-
-  //     const result = await query.getMany();
-
-  //     return responseWrapper(result, CustomerResponseDto);
-  //   }
-
-  //   public async getCustomerById(id: number): Promise<CustomerDto> {
-  //     return await this.fetchCustomerByIdWithValidation(id);
-  //   }
 }

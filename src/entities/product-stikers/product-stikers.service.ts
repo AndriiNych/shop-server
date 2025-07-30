@@ -2,6 +2,13 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
 import { ProductStickers } from './product-stikers.entity';
+import { IN_ES_TYPE } from '@src/type/in-es.type';
+
+export type ProductStickersType = Partial<InstanceType<typeof ProductStickers>>;
+const STICKER = {
+  NEW: 1,
+  SALE: 2,
+};
 
 @Injectable()
 export class ProductStickersService {
@@ -10,17 +17,27 @@ export class ProductStickersService {
     private readonly ProductStickersRepository: Repository<ProductStickers>,
   ) {}
 
-  //   public async getAllCustomers(
-  //     customerQueryParamsDto: CustomerQueryParamsDto,
-  //   ): Promise<ResponseWrapperDto<CustomerResponseDto>> {
-  //     const query = this.getQueryByCriterial(customerQueryParamsDto);
+  public async getProductStickers(conditions): Promise<ProductStickers[]> {
+    return await this.ProductStickersRepository.find({ where: conditions });
+  }
 
-  //     const result = await query.getMany();
+  public async updateProductStickersById(id: number, data) {
+    return await this.ProductStickersRepository.update({ id }, data);
+  }
 
-  //     return responseWrapper(result, CustomerResponseDto);
-  //   }
+  public async saveProductStickers(stickers: ProductStickersType): Promise<ProductStickers> {
+    const stickersNew = this.ProductStickersRepository.create(stickers);
 
-  //   public async getCustomerById(id: number): Promise<CustomerDto> {
-  //     return await this.fetchCustomerByIdWithValidation(id);
-  //   }
+    return await this.ProductStickersRepository.save(stickersNew);
+  }
+
+  public createNewProductStickers(productId: number) {
+    const stickerNew = {
+      productId: productId,
+      stickerId: STICKER.NEW,
+      inEs: IN_ES_TYPE.CREATE,
+    };
+
+    return stickerNew;
+  }
 }

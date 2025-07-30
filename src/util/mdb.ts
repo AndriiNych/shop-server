@@ -47,15 +47,9 @@ export async function getDbAccess(tableName: string) {
   const fileBuffer = fs.readFileSync('O:\\Bembi\\_WebSite\\website.mdb');
   const reader = new mdbReader(fileBuffer);
 
-  //   const tableNames = reader.getTableNames();
-  //   console.log('Таблиці в базі даних:', tableNames);
-
   const rows = reader.getTable(tableName).getData();
-
-  // console.log(rows);
 
   const filteredRows = rows.filter(elem => Number(elem?.es) > 0);
 
-  // console.log(rows);
   return filteredRows;
 }

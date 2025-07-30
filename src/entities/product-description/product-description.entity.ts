@@ -1,6 +1,7 @@
 import { FIELDS } from '@src/db/const-fields';
 import { TABLE_NAMES } from '@src/db/const-tables';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Product } from '../product/product.entity';
 
 @Entity(TABLE_NAMES.product_description)
 export class ProductDescription {
@@ -95,4 +96,8 @@ export class ProductDescription {
     ...FIELDS.UPDATED_AT,
   })
   inUpdatedAt: Date;
+
+  // @ManyToOne(() => Product, product => product.productDescriptions)
+  // @JoinColumn({ name: 'product_id' })
+  // product: Product;
 }

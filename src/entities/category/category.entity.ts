@@ -1,6 +1,7 @@
 import { FIELDS } from '@src/db/const-fields';
 import { TABLE_NAMES } from '@src/db/const-tables';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { CategoryDescription } from '../category-description/category-description.entity';
 
 @Entity(TABLE_NAMES.category)
 export class Category {
@@ -47,4 +48,7 @@ export class Category {
     ...FIELDS.UPDATED_AT,
   })
   inUpdatedAt: Date;
+
+  @OneToMany(() => CategoryDescription, descriptions => descriptions.category)
+  descriptions: CategoryDescription[];
 }

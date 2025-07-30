@@ -1,6 +1,6 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
+import { Repository } from 'typeorm';
 import { ProductDescription } from './product-description.entity';
 
 @Injectable()
@@ -10,17 +10,17 @@ export class ProductDescriptionService {
     private readonly productDescriptionRepository: Repository<ProductDescription>,
   ) {}
 
-  //   public async getAllCustomers(
-  //     customerQueryParamsDto: CustomerQueryParamsDto,
-  //   ): Promise<ResponseWrapperDto<CustomerResponseDto>> {
-  //     const query = this.getQueryByCriterial(customerQueryParamsDto);
+  public async getProductDescription(conditions): Promise<ProductDescription[]> {
+    return await this.productDescriptionRepository.find({ where: conditions });
+  }
 
-  //     const result = await query.getMany();
+  public async saveProductDescription(productdescription): Promise<ProductDescription[]> {
+    const productDescriptionList = this.productDescriptionRepository.create(productdescription);
 
-  //     return responseWrapper(result, CustomerResponseDto);
-  //   }
+    return await this.productDescriptionRepository.save(productDescriptionList);
+  }
 
-  //   public async getCustomerById(id: number): Promise<CustomerDto> {
-  //     return await this.fetchCustomerByIdWithValidation(id);
-  //   }
+  public async updateProductDescriptionById(id: number, data) {
+    return await this.productDescriptionRepository.update({ id }, data);
+  }
 }

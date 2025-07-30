@@ -1,4 +1,5 @@
-import { PickType } from '@nestjs/swagger';
-import { CategoryResponseBaseDto } from './category.response.base.dto';
-
-export class CategoryParamsDto extends PickType(CategoryResponseBaseDto, ['id'] as const) {}
+import { IsNumber } from 'class-validator';
+export class CategoryParamsDto {
+  @IsNumber()
+  id: number;
+}

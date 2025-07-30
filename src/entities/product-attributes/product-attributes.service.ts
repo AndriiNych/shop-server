@@ -1,6 +1,6 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
+import { Repository } from 'typeorm';
 import { ProductAttributes } from './product-attributes.entity';
 
 @Injectable()
@@ -10,17 +10,17 @@ export class ProductAttributesService {
     private readonly productAttributesRepository: Repository<ProductAttributes>,
   ) {}
 
-  //   public async getAllCustomers(
-  //     customerQueryParamsDto: CustomerQueryParamsDto,
-  //   ): Promise<ResponseWrapperDto<CustomerResponseDto>> {
-  //     const query = this.getQueryByCriterial(customerQueryParamsDto);
+  public async getProductAttributes(conditions): Promise<ProductAttributes[]> {
+    return await this.productAttributesRepository.find({ where: conditions });
+  }
 
-  //     const result = await query.getMany();
+  public async updateParoductAttributesById(id: number, data) {
+    return await this.productAttributesRepository.update({ id }, data);
+  }
 
-  //     return responseWrapper(result, CustomerResponseDto);
-  //   }
+  public async saveProductAttributes(productAttributes): Promise<ProductAttributes[]> {
+    const productAttributesNew = this.productAttributesRepository.create(productAttributes);
 
-  //   public async getCustomerById(id: number): Promise<CustomerDto> {
-  //     return await this.fetchCustomerByIdWithValidation(id);
-  //   }
+    return await this.productAttributesRepository.save(productAttributesNew);
+  }
 }

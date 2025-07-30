@@ -1,12 +1,21 @@
 import { Body, Controller, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { TABLE_NAMES } from '@src/db/const-tables';
 import { AttributeValueService } from './attribute-value.service';
+import { getPoint } from '@src/util/api-site/get.point';
+// import { ArrtibuteValueParamsDto } from './dto/attribute-value.params.dto';
 
 // @ApiBearerAuth()
 // @ApiTags(TABLE_NAMES.customer)
-@Controller(TABLE_NAMES.attribute_value)
+@Controller(getPoint(TABLE_NAMES.attribute_value))
 export class AttributeValueController {
-  constructor(private readonly AttributeValueService: AttributeValueService) {}
+  constructor(private readonly attributeValueService: AttributeValueService) {}
+
+  @Get('/synch')
+  async getAttributeValuesByAttribyteId() {
+    return await this.attributeValueService.syncAttributeValue();
+    // return await this.attributeValueService.syncAttributeValue();
+  }
+
   // @Get('/')
   //   async getAllCustomers(@Query() customerQueryParamsDto: CustomerQueryParamsDto) {
   //     return await this.customerService.getAllCustomers(customerQueryParamsDto);
